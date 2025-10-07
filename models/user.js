@@ -1,16 +1,15 @@
-const { required } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const passpostLocalMongoose = require("passport-local-mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new Schema({
     email: {
         type: String,
         required: true,
     },
-
+    // username will be automatically added by passport-local-mongoose
 });
 
-userSchema.plugin(passpostLocalMongoose);
+userSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("User",userSchema);
+module.exports = mongoose.model("User", userSchema);
