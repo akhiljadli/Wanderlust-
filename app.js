@@ -19,7 +19,6 @@ const listingsRouter = require("./routs/lisitng.js");
 const reviewsRouter = require("./routs/review.js");
 const userRouter = require("./routs/user.js");
 
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl = process.env.ATLASDB_URL;
 main()
   .then(() => {
@@ -63,12 +62,6 @@ const sessionOption = {
     httpOnly: true,
   }
 }
-
-
-
-// app.get("/", (req, res) => {
-//   res.send("Hi, I am root");
-// });
 app.use(session(sessionOption));
 app.use(flash());
 
@@ -86,14 +79,7 @@ app.use((req, res, next)=>{
   next();
 })
 
-// app.get("/demouser", async(req,res)=>{
-//   let fakeuser = new User({
-//     email:"ajaykumar45@gmail.com",
-//     username: "Ajay Rawat",
-//   });
-//   let registeredUser = await User.register(fakeuser,"helloworld");
-//   res.send(registeredUser);
-// })
+
 
 app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
@@ -104,12 +90,11 @@ app.all("*", (req, res, next) => {
 })
 
 
-//middleware
+
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
 
-  // res.status(statusCode).send(message);
 })
 
 app.listen(8082, () => {
